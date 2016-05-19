@@ -113,9 +113,10 @@ void pushButton(int i){ // index of the button, 0 to 9
   if (sequenceCounter == 0){
     ledFlags[0] = HIGH;
   }else if (sequenceCounter == 1){
+    ledFlags[0] = LOW;
     ledFlags[1] = HIGH;
   }else if (sequenceCounter == SEQUENCE_COUNT - 1){
-    
+    ledFlags[1] = LOW;
     ledFlags[2] == HIGH;
      
     if (checkSequence()){
@@ -134,8 +135,15 @@ void pushButton(int i){ // index of the button, 0 to 9
 
 void reset(){
 
-  for (int i = 0; i < NUM_LEDS; i++){
-    digitalWrite(ledPins[i], HIGH); // temporarily display 
+  //only one led is on at any time
+  if (isGameOver){
+    digitalWrite(ledPins[0], LOW); // temporarily display 
+    digitalWrite(ledPins[1], LOW); // temporarily display 
+    digitalWrite(ledPins[2], HIGH); // temporarily display 
+  }else{
+    digitalWrite(ledPins[0], LOW); // temporarily display 
+    digitalWrite(ledPins[1], LOW); // temporarily display 
+    digitalWrite(ledPins[2], HIGH); // temporarily display 
   }
   
   for (int i = 0; i < SEQUENCE_COUNT; i++){
@@ -153,10 +161,9 @@ void reset(){
 
 void win(){
   
-  // temporarily display the led sequence
-  for (int i = 0; i < NUM_LEDS; i++){
-    digitalWrite(ledPins[i], HIGH);
-  }
+  digitalWrite(ledPins[0], LOW); // temporarily display 
+  digitalWrite(ledPins[1], LOW); // temporarily display 
+  digitalWrite(ledPins[2], HIGH); // temporarily display 
  
   isGameOver = true;
   
